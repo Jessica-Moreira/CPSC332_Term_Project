@@ -9,6 +9,8 @@ DROP TABLE Students;
 DROP TABLE Departments;
 DROP TABLE Professors;
 
+-- Do not change the orders of any of the tables or inserts. Order matters. 
+
 CREATE TABLE Professors(
     SSN Numeric(9) NOT NULL,
     PName VARCHAR(50),
@@ -116,7 +118,7 @@ INSERT INTO Professors VALUES (222222222, 'Shawn Wang', 150000, 'Director', 'M',
 INSERT INTO Professors VALUES (333333333, 'Stephanie Coolman', 100000, 'Professor', 'F', '321 Fun Lane', 'Irvine', 'California', 92617, 949, 5554321);
 
 INSERT INTO Departments VALUES (222222, 'Computer Science', 'CS423', 7142241423, 222222222);
-INSERT INTO Departments VALUES (111111, 'Mutant studies', 'MH143', 7141423433, 111111111);
+INSERT INTO Departments VALUES (111111, 'Mutant Studies', 'MH143', 7141423433, 111111111);
 
 INSERT INTO Courses VALUES ('CSPC120', 'Introduction to C++', 'C++ Fundamentals', 3, 222222);
 INSERT INTO Courses VALUES ('CSPC131', 'Datastructures and Algorithms', 'C++ Datastructures and Algorithms', 3, 222222);
@@ -159,3 +161,22 @@ INSERT INTO Enrollments VALUES ('CSPC131', '131-01', 589213032, 'B');
 INSERT INTO Enrollments VALUES ('MUT143', '224-02', 589213032, 'D');
 INSERT INTO Enrollments VALUES ('MUT224', '224-01', 690123578, 'B');
 INSERT INTO Enrollments VALUES ('MUT143', '143-01', 690123578, 'D');
+
+INSERT INTO Meeting_Days VALUES('120-01', 'CSPC120', 'Monday');
+INSERT INTO Meeting_Days VALUES('120-01', 'CSPC120', 'Wednesday');
+INSERT INTO Meeting_Days VALUES('120-02', 'CSPC120', 'Monday');
+INSERT INTO Meeting_Days VALUES('120-02', 'CSPC120', 'Wednesday');
+INSERT INTO Meeting_Days VALUES('131-01', 'CSPC131', 'Tuesday');
+INSERT INTO Meeting_Days VALUES('131-01', 'CSPC131', 'Thursday');
+INSERT INTO Meeting_Days VALUES('143-01', 'MUT143', 'Saturday');
+INSERT INTO Meeting_Days VALUES('224-01', 'MUT224', 'Friday');
+INSERT INTO Meeting_Days VALUES('224-02', 'MUT224', 'Tuesday');
+
+INSERT INTO Preqrequisites VALUES ('CSPC131', 'CSPC120');
+
+INSERT INTO Minors_In VALUES (111111, 721123043);
+INSERT INTO Minors_In VALUES (222222, 589213032);
+
+INSERT INTO College_Degrees VALUES (111111111, 'P.H.D in Psychology');
+INSERT INTO College_Degrees VALUES (222222222, 'P.H.D in Computer Science');
+INSERT INTO College_Degrees VALUES (333333333, 'M.S. in Computer Science');
