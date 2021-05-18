@@ -20,34 +20,25 @@ if(!$link){
 }
 echo 'Connected successfully<p>';
 
-//----Displays the name of the Student----
-/*
-$query = "SELECT * FROM Students WHERE CWID=" .$_POST["CWID"];
-$result = $link->query($query);
-$row = $result->fetch_assoc();
-printf("Name: %s %s<br>", $row[First_Name], $row[Last_Name]);
-*/
+//----Displays all the courses and grades of the CWID inputed----
+if ($result = $link->query("SELECT * FROM Enrollments WHERE Student_ID=" .$_POST["CWID"])) {
 
-//----Displays one Course (NEEDS TO DISPLAY ALL COURSE)----
-$query = "SELECT * FROM Enrollments WHERE Student_ID=" .$_POST["CWID"];
-$result = $link->query($query);
-$row = $result->fetch_assoc();
-printf("Course Number: %s<br>", $row[Course_Num]);
-printf("Grade: %s<br>", $row[Grade]);
+    /* determine number of rows result set */
+    $row_cnt = $result->num_rows;
 
-//Doesn't work atm
-/*
-$result = $link->query("SELECT * FROM Enrollments",$link);
-$nor=$result->num_rows;
-printf("Result set has %d rows.\n",$nor);
+    printf("The student has %d courses.<br>", $row_cnt);
+    
+    //Prints out each of the courses and the grade
+    for ($i = 0; $i < $row_cnt; $i++){
+        $row = $result->fetch_assoc();
+        printf("Course: %s<br>", $row[Course_Num]);
+        printf("Grade: %s<br>", $row[Grade]);
+    }
 
-for($i = 0; $i < $num_rows; $i++) {
-    printf("WORKING");
-    $row = $result->fetch_assoc();
-    printf("Course Number: %s<br>", $row[Course_Num]);
-    printf("Grade: %s<br>", $row[Grade]);
+    /* close result set */
+    $result->close();
 }
-*/
+
 $result->free_result();
 $link->close();
 ?>
