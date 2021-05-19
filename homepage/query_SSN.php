@@ -19,18 +19,29 @@ if(!$link){
 }
 echo 'Connected successfully<p>';
 
-$query = "SELECT * FROM Professors WHERE SSN=" .$_POST["SSN"];
+$query = "SELECT Title, Classroom, Begin_Time, End_Time, Meeting_Day 
+        FROM Sections S, Meeting_Days M, Courses C 
+        WHERE  M.Sec_Num=S.Sec_Num AND C.CNum=S.Course_Num AND S.Professor=" .$_POST["SSN"];
+
 $result = $link->query($query);
-$row=$result->fetch_assoc();
-echo "Name: ",$row["PName"], "<br>";
-// printf("Name: %s<br>\n", $row["PName"]);
-// printf("Title: %s<br>\n", $row["Title"]);
-//printf("Classrooms:%s<br>\n", $row["Last_Name"]);
-//printf("Meeting Days:%s<br>\n", $row["First_Name"]);
-//printf("Times:%s<br>\n", $row["Begin_Time"], $row["End_Time"]);
+$nor = $result->num_rows;
+
+for($i = 0; $i < $nor; $i++){
+    $row=$result->fetch_assoc();
+    echo "Title: ", $row["Title"], "<br>";
+    echo "Classrooms: ", $row["Classroom"], "<br>";
+    echo "Meeting Days: ", $row["Meeting_Day"], "<br>";
+    echo "Times: ", $row["Begin_Time"], "-", $row["End_Time"], "<br>";
+    echo "<br>";
+}
+
 $result->free_result();
 $link->close();
 ?>
 
 </body>
 </html>
+
+
+
+
