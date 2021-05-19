@@ -21,12 +21,23 @@ if(!$link){
 echo 'Connected successfully<p>';
 
 //----Displays the name of the Student----
-$query = "SELECT * FROM Sections WHERE Course_Num=" .$_POST["CNum"];
+$query = "SELECT * 
+        FROM Sections S, Meeting_Days M
+        WHERE M.C_Num = S.Course_Num AND M.Sec_Num = S.Sec_Num
+        AND Course_Num= '{$_POST["CNum"]}'";
 $result = $link->query($query);
-$row = $result->fetch_assoc();
-//Doesn't Print??
-printf("Section Number: %s<br>", $row[Sec_Num]);
+$nor = $result->num_rows;
 
+for ($i = 0; $i < $nor; $i++){
+    if ($row = $result->fetch_assoc()){
+        echo "Section: ", $row["Sec_Num"], "<br>";
+        echo "Classroom: ", $row["Classroom"], "<br>";
+        echo "Meeting Days: ", $row["Meeting_Day"], "<br>";
+        echo "Times: ", $row["Begin_Time"], "-", $row["End_Time"], "<br>";
+        echo "Number of Students Enrolled: ", $row["Num_Seats"], "<br>";
+        echo "<br>";
+    }
+}
 $result->free_result();
 $link->close();
 ?>
