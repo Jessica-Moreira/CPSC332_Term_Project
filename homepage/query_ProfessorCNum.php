@@ -6,8 +6,8 @@
 <h1>Professor Database</h1>
 
 <form action="query_ProfessorCNum.php" method="POST">
-Enter the section number: <input type="text" name="Sec_Num" />
 Enter course number: <input type="text" name="Course_Num" />
+Enter the section number: <input type="text" name="Sec_Num" />
 <input type="submit" />
 </form>
 
@@ -20,14 +20,19 @@ if(!$link){
 }
 echo 'Connected successfully<p>';
 
-$query = "SELECT * FROM Enrollments WHERE Sec_Num={$_POST["Sec_Num"]} AND Course_Num={$_POST["Course_Num"]}";
-echo $query, "<br>";
+$query = "SELECT Grade, COUNT(*) as Grade_Count FROM Enrollments 
+    WHERE Sec_Num='{$_POST["Sec_Num"]}' 
+    AND Course_Num='{$_POST["Course_Num"]}' GROUP BY Grade";
+    //echo $query, "<br>";
 
 $result = $link->query($query);
+$nor = $result->num_rows;
 
-$row=$result->fetch_assoc();
-echo "Section Num: ", $row["Sec_Num"], "<br>";
-echo "Grade: ", $row["Grade"], "<br>";
+for($i = 0; $i < $nor; $i++){
+    $row=$result->fetch_assoc();
+    echo "Grade: ", $row["Grade"], "<br>";
+    echo "Student Total: ", $row["Grade_Count"],"<br>";
+}
 
 $result->free_result();
 $link->close();
